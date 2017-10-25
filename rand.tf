@@ -5,7 +5,7 @@ provider "aws" {
 resource "aws_vpc" "rand-main" {
   cidr_block = "172.16.0.0/16"
   tags {
-    Name = "rand-main"
+    Name = "Main"
   }
 }
 
@@ -64,7 +64,7 @@ resource "aws_instance" "trololol" {
   "rand-vpc-ssh-office"
   ]
   tags {
-    Name = "rand-main"
+    Name = "Main"
   }
 }
 
@@ -77,7 +77,7 @@ resource "aws_instance" "ololol" {
   "rand-vpc-ssh-office"
   ]
   tags {
-    Name = "rand-main"
+    Name = "Main"
   }
 }
 
