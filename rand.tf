@@ -9,6 +9,11 @@ resource "aws_vpc" "rand-main" {
   }
 }
 
+resource "aws_key_pair" "rand-key" {
+  key_name = "rand-key"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC1z4nQ5XH7NUrxYDkLj91GCZD39js2HiVwWcrVA03yKcIiAAP4Bmk77S7KQvfHLSo9Wa7/ZGUfwxK6VSH18g2GgzKgoRuxxed+4Y4EnVtLWvR2+vZz6kLjMpEjXSD/o1siQNvLP69hE0LLM5BkiBvKn2oniyJERkB/53t3u+gvl4cWovV3OuafPwuSjkjvak5ViRMDQzCZ0qh73MI3U5Rd39pG9VdwyF7u06M9Q3tdhJpNRoZozCXnXx24Quti+p/WN5jUGkBUlxg14OPAJKrDkoLuzvWAIJmeStuHuf9XdyKHR5FJD87njrpId8KjBiMWx5rHnq9cBk49kZtUGQQ7bo5PNZtGTXdhwrOhR2ZSqFn7pCzQB8yOCSo6BO/Aq+BNV7REwA5eCCsST+oBkGg4mTQgmrtjxlVmj2bZmKRRF7p4jnNf18WvFNRykLJm/NwyelEjK9TWL9TMji81hN1fT8vVdNndVplQ1LwNKvhT+P1rF7+qV8CHMZwgC+iLXaXKAPtjo3ZpN49xBYBo6pC/GSv0eqZW2CIS49LiTQCLibpjFrNVZCN+SUebzeJ4LrpCc7TJVrFkCKXzYkDyFTT9muIusdfy2wGZ8pLB9JzFYKvLI2gF1xGg5+cRhr1rhYrOyUgE2O0T8xu005hA5vzCo4js/rRWcmkKDBQWq2BmUw=="
+}
+
 resource "aws_security_group" "rand-vpc-ssh-office" {
   name        = "rand-vpc-ssh-office"
   description = "Allow ssh from office"
@@ -53,6 +58,8 @@ resource "aws_subnet" "main-b" {
 resource "aws_instance" "trololol" {
   ami           = "ami-2757f631"
   instance_type = "t2.micro"
+  key_name = "rand-key"
+  subnet_id = "${aws_subnet.main-a.id}"
   security_groups = [
   "rand-vpc-ssh-office"
   ]
@@ -64,6 +71,8 @@ resource "aws_instance" "trololol" {
 resource "aws_instance" "ololol" {
   ami           = "ami-2757f631"
   instance_type = "t2.micro"
+  key_name = "rand-key"
+  subnet_id = "${aws_subnet.main-b.id}"
   security_groups = [
   "rand-vpc-ssh-office"
   ]
