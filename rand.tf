@@ -18,6 +18,15 @@ resource "aws_vpc" "rand-main" {
   }
 }
 
+resource "aws_internet_gateway" "rand-main-gw" {
+  vpc_id = "${aws_vpc.rand-main.id}"
+
+  tags {
+    Name = "Main"
+  }
+}
+
+
 resource "aws_subnet" "main-a" {
   vpc_id     = "${aws_vpc.rand-main.id}"
   cidr_block = "172.16.1.0/24"
