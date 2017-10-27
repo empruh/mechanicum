@@ -1,5 +1,10 @@
+variable access_key {}
+variable secret_key {}
+
 provider "aws" {
   region     = "eu-central-1"
+  access_key = "${var.access_key}"
+  secret_key = "${var.secret_key}"
 }
 
 #########################################################
@@ -39,10 +44,10 @@ resource "aws_security_group" "rand-vpc-ssh-office" {
   vpc_id      = "${aws_vpc.rand-main.id}"
 
   ingress {
-    from_port   = 0
+    from_port   = 22
     to_port     = 22
-    protocol    = "ssh"
-    cidr_blocks = ["81.93.113.12/32"]
+    protocol    = "tcp"
+    cidr_blocks = ["81.93.113.0/24"]
   }
 
   egress {
@@ -62,7 +67,8 @@ resource "aws_security_group" "rand-vpc-ssh-office" {
 
 resource "aws_elb" "rand-elb" {
   name               = "rand-elb"
-  availability_zones = ["eu-central-1a", "eu-central-1b"]
+#availability_zones = ["eu-central-1a", "eu-central-1b"]
+  subnets = ["${aws_subnet.main-a.id}","${aws_subnet.main-b.id}" ]
 
   access_logs {
     bucket        = "rand-elb-bucket"
@@ -108,12 +114,12 @@ resource "aws_key_pair" "rand-key" {
 }
 
 resource "aws_instance" "trololol" {
-  ami           = "ami-2757f631"
+  ami           = "ami-1e339e71"
   instance_type = "t2.micro"
   key_name = "rand-key"
   subnet_id = "${aws_subnet.main-a.id}"
   security_groups = [
-  "rand-vpc-ssh-office"
+  "${aws_security_group.rand-vpc-ssh-office.id}"
   ]
   tags {
     Name = "Main"
@@ -121,12 +127,12 @@ resource "aws_instance" "trololol" {
 }
 
 resource "aws_instance" "ololol" {
-  ami           = "ami-2757f631"
+  ami           = "ami-1e339e71"
   instance_type = "t2.micro"
   key_name = "rand-key"
   subnet_id = "${aws_subnet.main-b.id}"
   security_groups = [
-  "rand-vpc-ssh-office"
+  "${aws_security_group.rand-vpc-ssh-office.id}"
   ]
   tags {
     Name = "Main"
