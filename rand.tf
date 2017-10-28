@@ -1,5 +1,6 @@
 variable access_key {}
 variable secret_key {}
+variable ssh_allowed_cidr {}
 
 provider "aws" {
   region     = "eu-central-1"
@@ -56,7 +57,7 @@ resource "aws_security_group" "rand-vpc-ssh-office" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["81.93.113.0/24"]
+    cidr_blocks = [ "${var.ssh_allowed_cidr}" ]
   }
 
   egress {
