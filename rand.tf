@@ -112,6 +112,15 @@ resource "aws_elb" "rand-elb" {
   }
 
 }
+resource "aws_s3_bucket" "rand-elb-bucket" {
+  bucket = "rand-elb-bucket"
+  acl    = "private"
+
+  tags {
+    Name        = "Main"
+  }
+}
+
 
 #########################################################
 ### INSTANCES  ##########################################
