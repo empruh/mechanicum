@@ -48,6 +48,17 @@ resource "aws_subnet" "main-b" {
   }
 }
 
+resource "aws_subnet" "main-c" {
+  vpc_id     = "${aws_vpc.rand-main.id}"
+  cidr_block = "172.16.3.0/24"
+  availability_zone = "eu-central-1c"
+  map_public_ip_on_launch = "True"
+  tags {
+    Name = "Main"
+  }
+}
+
+
 resource "aws_security_group" "rand-vpc-ssh-office" {
   name        = "rand-vpc-ssh-office"
   description = "Allow ssh from office"
