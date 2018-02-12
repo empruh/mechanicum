@@ -1,6 +1,7 @@
 variable access_key {}
 variable secret_key {}
 variable ssh_allowed_cidr {}
+variable ssh_public_key {}
 
 provider "aws" {
   region     = "eu-central-1"
@@ -140,7 +141,7 @@ resource "aws_s3_bucket" "rand-elb-bucket" {
 
 resource "aws_key_pair" "rand-key" {
   key_name = "rand-key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC1z4nQ5XH7NUrxYDkLj91GCZD39js2HiVwWcrVA03yKcIiAAP4Bmk77S7KQvfHLSo9Wa7/ZGUfwxK6VSH18g2GgzKgoRuxxed+4Y4EnVtLWvR2+vZz6kLjMpEjXSD/o1siQNvLP69hE0LLM5BkiBvKn2oniyJERkB/53t3u+gvl4cWovV3OuafPwuSjkjvak5ViRMDQzCZ0qh73MI3U5Rd39pG9VdwyF7u06M9Q3tdhJpNRoZozCXnXx24Quti+p/WN5jUGkBUlxg14OPAJKrDkoLuzvWAIJmeStuHuf9XdyKHR5FJD87njrpId8KjBiMWx5rHnq9cBk49kZtUGQQ7bo5PNZtGTXdhwrOhR2ZSqFn7pCzQB8yOCSo6BO/Aq+BNV7REwA5eCCsST+oBkGg4mTQgmrtjxlVmj2bZmKRRF7p4jnNf18WvFNRykLJm/NwyelEjK9TWL9TMji81hN1fT8vVdNndVplQ1LwNKvhT+P1rF7+qV8CHMZwgC+iLXaXKAPtjo3ZpN49xBYBo6pC/GSv0eqZW2CIS49LiTQCLibpjFrNVZCN+SUebzeJ4LrpCc7TJVrFkCKXzYkDyFTT9muIusdfy2wGZ8pLB9JzFYKvLI2gF1xGg5+cRhr1rhYrOyUgE2O0T8xu005hA5vzCo4js/rRWcmkKDBQWq2BmUw=="
+  public_key = "${var.ssh_public_key}"
 }
 
 resource "aws_instance" "frontend-1a" {
