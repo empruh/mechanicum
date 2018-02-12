@@ -112,7 +112,7 @@ resource "aws_elb" "rand-elb" {
     interval            = 30
   }
 
-  instances                   = ["${aws_instance.trololol.id}","${aws_instance.ololol.id}"]
+  instances                   = ["${aws_instance.frontend-1a.id}","${aws_instance.frontend-1b.id}","{aws_instance.frontend-1c.id}"]
   cross_zone_load_balancing   = true
   idle_timeout                = 400
   connection_draining         = true
@@ -143,7 +143,7 @@ resource "aws_key_pair" "rand-key" {
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC1z4nQ5XH7NUrxYDkLj91GCZD39js2HiVwWcrVA03yKcIiAAP4Bmk77S7KQvfHLSo9Wa7/ZGUfwxK6VSH18g2GgzKgoRuxxed+4Y4EnVtLWvR2+vZz6kLjMpEjXSD/o1siQNvLP69hE0LLM5BkiBvKn2oniyJERkB/53t3u+gvl4cWovV3OuafPwuSjkjvak5ViRMDQzCZ0qh73MI3U5Rd39pG9VdwyF7u06M9Q3tdhJpNRoZozCXnXx24Quti+p/WN5jUGkBUlxg14OPAJKrDkoLuzvWAIJmeStuHuf9XdyKHR5FJD87njrpId8KjBiMWx5rHnq9cBk49kZtUGQQ7bo5PNZtGTXdhwrOhR2ZSqFn7pCzQB8yOCSo6BO/Aq+BNV7REwA5eCCsST+oBkGg4mTQgmrtjxlVmj2bZmKRRF7p4jnNf18WvFNRykLJm/NwyelEjK9TWL9TMji81hN1fT8vVdNndVplQ1LwNKvhT+P1rF7+qV8CHMZwgC+iLXaXKAPtjo3ZpN49xBYBo6pC/GSv0eqZW2CIS49LiTQCLibpjFrNVZCN+SUebzeJ4LrpCc7TJVrFkCKXzYkDyFTT9muIusdfy2wGZ8pLB9JzFYKvLI2gF1xGg5+cRhr1rhYrOyUgE2O0T8xu005hA5vzCo4js/rRWcmkKDBQWq2BmUw=="
 }
 
-resource "aws_instance" "trololol" {
+resource "aws_instance" "frontend-1a" {
   ami           = "ami-1e339e71"
   instance_type = "t2.micro"
   key_name = "rand-key"
@@ -156,7 +156,7 @@ resource "aws_instance" "trololol" {
   }
 }
 
-resource "aws_instance" "ololol" {
+resource "aws_instance" "frontend-1b" {
   ami           = "ami-1e339e71"
   instance_type = "t2.micro"
   key_name = "rand-key"
@@ -169,4 +169,16 @@ resource "aws_instance" "ololol" {
   }
 }
 
+resource "aws_instance" "frontend-1c" {
+  ami           = "ami-1e339e71"
+  instance_type = "t2.micro"
+  key_name = "rand-key"
+  subnet_id = "${aws_subnet.main-c.id}"
+  security_groups = [
+  "${aws_security_group.rand-vpc-ssh-office.id}"
+  ]
+  tags {
+    Name = "Main"
+  }
+}
 
