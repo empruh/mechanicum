@@ -146,7 +146,7 @@ resource "aws_key_pair" "rand-key" {
 
 resource "aws_instance" "frontend-1a" {
   ami           = "ami-1e339e71"
-  instance_type = "t2.micro"
+  instance_type = "t2.large"
   key_name = "rand-key"
   subnet_id = "${aws_subnet.main-a.id}"
   security_groups = [
@@ -159,7 +159,7 @@ resource "aws_instance" "frontend-1a" {
 
 resource "aws_instance" "frontend-1b" {
   ami           = "ami-1e339e71"
-  instance_type = "t2.micro"
+  instance_type = "t2.large"
   key_name = "rand-key"
   subnet_id = "${aws_subnet.main-b.id}"
   security_groups = [
@@ -172,7 +172,7 @@ resource "aws_instance" "frontend-1b" {
 
 resource "aws_instance" "frontend-1c" {
   ami           = "ami-1e339e71"
-  instance_type = "t2.micro"
+  instance_type = "t2.large"
   key_name = "rand-key"
   subnet_id = "${aws_subnet.main-c.id}"
   security_groups = [
