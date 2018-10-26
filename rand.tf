@@ -183,3 +183,11 @@ resource "aws_instance" "frontend-1c" {
   }
 }
 
+resource "openstack_compute_instance_v2" "test_terraform_instance" {
+  name = "terraform_instance"
+  provider = "openstack.ovh"
+  image_name = "Ubuntu 16.04"
+  flavor_name = "s1-2"
+  key_pair = "${openstack_compute_keypair_v2.test_keypair.name}"
+}
+
