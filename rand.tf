@@ -9,6 +9,12 @@ provider "aws" {
   secret_key = "${var.secret_key}"
 }
 
+provider "openstack" {
+  auth_url = "https://auth.cloud.ovh.net/v3"
+  domain_name = "default"
+  alias = "ovh"
+}
+
 #########################################################
 ### NETWORK / SECGROUPS  ################################
 #########################################################
