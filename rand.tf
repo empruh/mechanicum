@@ -183,3 +183,17 @@ resource "aws_instance" "frontend-1c" {
   }
 }
 
+resource "aws_instance" "frontend-1d" {
+  ami           = "ami-1e339e71"
+  instance_type = "t2.micro"
+  key_name = "rand-key"
+  subnet_id = "${aws_subnet.main-c.id}"
+  security_groups = [
+  "${aws_security_group.rand-vpc-ssh-office.id}"
+  ]
+  tags {
+    Name = "Main",
+    Date = 2022,
+    Zone = "EU"
+  }
+}
